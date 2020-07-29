@@ -1,6 +1,6 @@
 {
 	"name": "mocha-reporter-json-standard",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"description": "Format ESLint output to standardized JSON",
 	"main": "dist/index.js",
 	"repository": {
