@@ -80,6 +80,10 @@
 									"type": "string",
 									"description": "Id of message"
 								},
+								"title": {
+									"type": "string",
+									"description": "Title of message"
+								},
 								"message": {
 									"type": "string",
 									"description": "Message content"

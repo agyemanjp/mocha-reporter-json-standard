@@ -4,7 +4,9 @@
 	"description": "Format ESLint output to standardized JSON",
 	"main": "dist/index.js",
 	"files": [
-		"/dist"
+		"/dist/*.js",
+		"!/dist/check-general.*",
+		"!/dist/*.test.*"
 	],
 	"repository": {
 		"type": "git",
@@ -15,7 +17,8 @@
 		"mocha-reporter",
 		"json"
 	],
-	"author": "James Prempeh <jprempeh@danfortsystems.com>",
+	"license": "MIT",
+	"author": "James Prempeh <agyemanjp@danfortsystems.com>",
 	"bugs": {
 		"url": "https://github.com/agyemanjp/mocha-reporter-json-standard/issues"
 	},
@@ -24,10 +27,11 @@
 		"setup": "rm -rf ./node_modules package-lock.json && npm install",
 		"clean": "rm -rf dist .eslintcache *-report.json src/check-general.ts ",
 		"schema": "json2ts ./src/check-general.schema.json ./src/check-general.ts",
-		"lint": "eslint --ext ts,tsx --cache src/*",
+		"lint": "eslint --ext ts --cache src/*",
 		"build": "npm run schema && tsc && flatten dist && rm -rf dist/*.test.d.ts dist/*.test.js.map",
 		"test": "mocha dist/*.test.js --reporter dist/index.js >| ./test-report.json",
-		"ci": "npm run clean && npm run lint && npm run build && npm run test"
+		"ci": "npm run clean && npm run lint && npm run build && npm run test",
+		"testpub": "npm publish --dry-run && npm install . -g"
 	},
 	"devDependencies": {
 		"@hutsoninc/flatten-dir-cli": "^1.0.2",

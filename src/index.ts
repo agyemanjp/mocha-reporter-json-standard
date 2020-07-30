@@ -37,7 +37,12 @@ module.exports = function (this: unknown, runner: mocha.Runner) {
 		const fileResult = results.byFile[filePath]!
 		fileResult.counts[category] = fileResult.counts[category]! + 1
 		// eslint-disable-next-line fp/no-mutation
-		fileResult.details = [...fileResult.details, { Id: test.title, message, category }]
+		fileResult.details = [...fileResult.details, {
+			Id: test.titlePath()[0] ?? "",
+			title: test.fullTitle(),
+			message,
+			category
+		}]
 	}
 
 	runner.on('pass', function (test) {
