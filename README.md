@@ -13,3 +13,8 @@ The other packages include:
 
 ## Install 
 `npm install --save mocha-reporter-json-standard`
+
+## Usage
+`mocha dist/*.test.js --reporter mocha-reporter-json-standard >| test-report.json`
+
+This will test all _*.test.js_ files in the _/dist_ folder and output the results file _test-report.json_
