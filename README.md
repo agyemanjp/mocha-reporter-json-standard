@@ -1,8 +1,15 @@
 # mocha-reporter-json-standard
-Format Mocha test runner output to standardized JSON
+Report Mocha test runner output to a standardized CI tooling output JSON format
 
 ## Description
-Format Mocha test runner output to standardized JSON compatible with output from other code quality tooling (e.g., unit tests)
+Report Mocha test runner output to a [standardized CI tooling output JSON format](https://gist.githubusercontent.com/agyemanjp/0f43de0639a7ec872e9ebcbe6166d5d9/raw/ccb90a9298561f2ba7c07ba6843b2b25244f9cf7/code-check-general.schema.json).
+
+This package is part of the series of packages for reporting tooling output in a standardized JSON format for use with the [ci-checks-action](https://github.com/marketplace/actions/create-github-checks-from-code-check-script-output-files) Github action. 
+
+The other packages include:
+
+- [eslint-formatter-json-standard](https://www.npmjs.com/package/eslint-formatter-json-standard)
+
 
 ## Install 
-npm install --save mocha-reporter-json-standard
+`npm install --save mocha-reporter-json-standard`
