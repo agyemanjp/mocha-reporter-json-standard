@@ -1,6 +1,6 @@
 {
 	"name": "mocha-reporter-json-standard",
-	"version": "0.1.2",
+	"version": "1.0.0",
 	"description": "Report Mocha test runner output to a standardized CI tooling output JSON format",
 	"main": "dist/index.js",
 	"files": [
