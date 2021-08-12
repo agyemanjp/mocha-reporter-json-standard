@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable fp/no-mutation */
+import { default as groupBy } from "lodash.groupby"
 
-import * as mocha from 'mocha'
+import { Runner, reporters, Test } from 'mocha'
 import { CheckGeneralSchema } from "./check-general"
 
 
@@ -17,8 +18,11 @@ interface TestFailure {
 }
 
 
-module.exports = function (this: unknown, runner: mocha.Runner) {
-	mocha.reporters.Base.call(this, runner)
+module.exports = function (this: unknown, runner: Runner) {
+	reporters.Base.call(this, runner)
+
+	/** Corresponds to a top-most describe block */
+	const individualTests: Test[] = []
 
 	const results: CheckGeneralSchema = {
 		name: "Mocha unit tests",
@@ -54,6 +58,27 @@ module.exports = function (this: unknown, runner: mocha.Runner) {
 	})
 
 	runner.on('end', function () {
+		const testsByCategories = groupBy(individualTests, t => t.titlePath)
+		const succesfullGroupNames = Object.keys(testsByCategories).filter(catName => testsByCategories[catName].every(t => t.isPassed))
+		const individualFailures = individualTests.filter(t => t.isFailed)
+		results.byFile["General"] = {
+			counts: { failure: 0, warning: 0, notice: 0 },
+			details: [
+				...succesfullGroupNames.map((g, i) => ({
+					Id: `success-${i}`,
+					title: g,
+					message: `${g.length} tests passed`,
+					category: "passed" as CheckGeneralSchema["byFile"]["details"]["details"][0]["category"]
+				})),
+				...individualFailures.map((f, i) => ({
+					Id: `failure-${i}`,
+					title: f.title,
+					message: f.err?.message || "Error",
+					category: "failure" as CheckGeneralSchema["byFile"]["details"]["details"][0]["category"]
+				}))
+			]
+		} // as CheckGeneralSchema["byFile"]
+
 		console.log(JSON.stringify(results, null, 2))
 	})
 }
