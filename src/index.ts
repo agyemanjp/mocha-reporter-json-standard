@@ -1,21 +1,9 @@
 /* eslint-disable fp/no-mutating-methods */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable fp/no-mutation */
-import { default as groupBy } from "lodash.groupby"
 
 import { Runner, reporters, Test, Suite } from 'mocha'
 import { CheckGeneralSchema } from "./check-general"
-
-interface TestFailure {
-	"stack": string;
-	"message": string,
-	"generatedMessage": boolean,
-	"name": string,
-	"code": string,
-	"actual": string, //json
-	"expected": string, //json
-	"operator": string
-}
 
 module.exports = function (this: unknown, runner: Runner) {
 	const {
@@ -60,13 +48,14 @@ module.exports = function (this: unknown, runner: Runner) {
 		const individualFailures = individualTests.filter(t => t.state !== "passed")
 		results.counts.failure = individualFailures.length
 		results.byFile["General"] = {
+			summary: "",
 			counts: { failure: individualFailures.length, warning: 0, notice: 0 },
 			details: [
 				...succesfullSuiteNames.map((sName, i) => ({
 					Id: `success-${i}`,
 					title: sName,
 					message: `${rootSuites[sName].length} tests passed`,
-					category: "passed" as CheckGeneralSchema["byFile"]["details"]["details"][0]["category"]
+					category: "notice" as CheckGeneralSchema["byFile"]["details"]["details"][0]["category"]
 				})),
 				...individualFailures.map((f, i) => ({
 					Id: `failure-${i}`,
