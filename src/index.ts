@@ -14,7 +14,6 @@ module.exports = function (this: unknown, runner: Runner) {
 	} = Runner.constants
 	reporters.Base.call(this, runner)
 
-	/** Corresponds to a top-most describe block */
 	const individualTests: Test[] = []
 	const rootSuites: { [key: string]: Test[] } = {}
 
