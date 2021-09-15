@@ -53,7 +53,7 @@ module.exports = function (this: unknown, runner: Runner) {
 				...succesfullSuiteNames.map((sName, i) => ({
 					Id: `success-${i}`,
 					title: sName,
-					message: `${rootSuites[sName].length} tests passed: ${rootSuites[sName].map(t => t.title).join(", ")}`,
+					message: `${rootSuites[sName].length} tests passed: ${rootSuites[sName].map(t => t.title).join(" / ")}`,
 					category: "notice" as CheckGeneralSchema["byFile"]["details"]["details"][0]["category"]
 				})),
 				...individualFailures.map((f, i) => ({
